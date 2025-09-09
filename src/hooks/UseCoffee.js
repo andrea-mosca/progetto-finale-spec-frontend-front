@@ -5,9 +5,9 @@ export default function UseCoffee() {
   useEffect(() => {
     const fetchCoffee = async () => {
       try {
-        const response = await fetch(`${apiUrl}/coffees`)
-          .then((res) => res.json())
-          .then((data) => setCoffee(data));
+        const response = await fetch(`${apiUrl}/coffees`);
+        const data = await response.json();
+        setCoffee(data);
       } catch (err) {
         console.error(err);
       }
