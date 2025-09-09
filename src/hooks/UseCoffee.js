@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 const apiUrl = import.meta.env.VITE_API_URL;
-export default function UseCoffee() {
+export default function useCoffee() {
   const [coffee, setCoffee] = useState([]);
   useEffect(() => {
     const fetchCoffee = async () => {
@@ -8,11 +8,13 @@ export default function UseCoffee() {
         const response = await fetch(`${apiUrl}/coffees`);
         const data = await response.json();
         setCoffee(data);
+        console.log(coffee);
       } catch (err) {
         console.error(err);
       }
     };
     fetchCoffee();
   }, []);
+
   return { coffee, setCoffee };
 }

@@ -7,3 +7,15 @@ body{
     background-repeat: no-repeat;
     min-height: 100vh;
 }
+
+.my-card-list{
+    background-color: rgb(33, 2, 2);
+    color: white;
+    border-radius: 30px;
+    text-align: center;
+    
+}
+.my-card-list:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}

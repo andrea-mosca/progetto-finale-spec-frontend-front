@@ -3,18 +3,20 @@ import CoffeeDetails from "./pages/CoffeeDetails";
 import CoffeeList from "./pages/CoffeeList";
 import DefaultLayout from "./layouts/DefaultLayout";
 import FavouriteList from "./pages/FavouriteList";
-function App() {
+import { CoffeeProvider } from "./context/CoffeeContext";
+
+export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route index element={<CoffeeList />} />
-          <Route path="/coffees/:id" element={<CoffeeDetails />} />
-          <Route path="/coffees/favourite" element={<FavouriteList />} />
-        </Route>
-      </Routes>
+      <CoffeeProvider>
+        <Routes>
+          <Route element={<DefaultLayout />}>
+            <Route index element={<CoffeeList />} />
+            <Route path="/coffees/:id" element={<CoffeeDetails />} />
+            <Route path="/coffees/favourite" element={<FavouriteList />} />
+          </Route>
+        </Routes>
+      </CoffeeProvider>
     </BrowserRouter>
   );
 }
-
-export default App;
