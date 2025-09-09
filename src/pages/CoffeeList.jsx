@@ -3,7 +3,6 @@ import { useCoffeeContext } from "../context/CoffeeContext";
 
 export default function CoffeList() {
   const { coffee } = useCoffeeContext();
-  console.log(coffee);
 
   return (
     <div>
@@ -12,7 +11,7 @@ export default function CoffeList() {
         {coffee &&
           coffee.map((c, i) => (
             <div className="col" key={i}>
-              <CoffeCard title={c.title} category={c.category} />
+              <CoffeCard title={c.title} category={c.category} id={c.id} />
             </div>
           ))}
       </div>
