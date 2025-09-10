@@ -22,7 +22,9 @@ export default function Navbar() {
             <NavLink className="nav-link" to="/coffees/favourite">
               Favourite list
             </NavLink>
-            <NavLink className="nav-link"></NavLink>
+            <NavLink className="nav-link" to="/details">
+              Approfondisci
+            </NavLink>
           </div>
         </div>
       </div>
