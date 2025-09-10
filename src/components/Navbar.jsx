@@ -1,4 +1,9 @@
 import { NavLink } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3">
@@ -20,7 +25,8 @@ export default function Navbar() {
               Home page
             </NavLink>
             <NavLink className="nav-link" to="/coffees/favourite">
-              Favourite list
+              <FontAwesomeIcon icon={farHeart} /> {/* cuore vuoto */}
+              {/* <FontAwesomeIcon icon={fasHeart} />  cuore pieno */}
             </NavLink>
             <NavLink className="nav-link" to="/details">
               Approfondisci
