@@ -3,6 +3,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 export default function useCoffee() {
   const [coffee, setCoffee] = useState([]);
   const [singleCoffee, setSingleCoffee] = useState([]);
+
   // chiamata coffee list
   useEffect(() => {
     const fetchCoffee = async () => {
@@ -29,5 +30,10 @@ export default function useCoffee() {
     }
   });
 
-  return { coffee, setCoffee, fetchSingleCoffee, singleCoffee };
+  return {
+    coffee,
+    setCoffee,
+    fetchSingleCoffee,
+    singleCoffee,
+  };
 }

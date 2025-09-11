@@ -71,7 +71,7 @@ export default function CoffeList() {
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <option value="">seleziona una categoria</option>
+            <option value="">Nessun filtro</option>
             {categories.map((c, i) => (
               <option key={i} value={c}>
                 {c}

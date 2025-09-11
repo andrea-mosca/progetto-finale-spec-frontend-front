@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { useCoffeeContext } from "../context/CoffeeContext";
 
 export default function Navbar() {
+  const { favouriteCoffee } = useCoffeeContext();
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3">
       <div className="container-fluid">
@@ -25,8 +26,11 @@ export default function Navbar() {
               Home page
             </NavLink>
             <NavLink className="nav-link" to="/coffees/favourite">
-              <FontAwesomeIcon icon={farHeart} /> {/* cuore vuoto */}
-              {/* <FontAwesomeIcon icon={fasHeart} />  cuore pieno */}
+              {favouriteCoffee.length === 0 ? (
+                <FontAwesomeIcon icon={farHeart} className="text-secondary" />
+              ) : (
+                <FontAwesomeIcon icon={fasHeart} className="text-danger" />
+              )}
             </NavLink>
             <NavLink className="nav-link" to="/details">
               Approfondisci
