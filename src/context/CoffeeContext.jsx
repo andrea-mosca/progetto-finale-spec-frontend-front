@@ -6,7 +6,7 @@ const CoffeeContext = createContext();
 function CoffeeProvider({ children }) {
   const coffeeData = useCoffee();
   const [favouriteCoffee, setFavouriteCoffee] = useState([]);
-
+  const [compareList, setCompareList] = useState([]);
   function toggleFavourite(item) {
     setFavouriteCoffee((prev) => {
       const alreadyFav = prev.find((fav) => fav.id === item.id);
@@ -17,10 +17,26 @@ function CoffeeProvider({ children }) {
       }
     });
   }
+  function toggleCompare(item) {
+    setCompareList((prev) => {
+      const alreadyAdded = prev.find((p) => p.id === item.id);
+      if (alreadyAdded) {
+        return prev.filter((p) => p.id !== item.id);
+      } else {
+        return [...prev, item];
+      }
+    });
+  }
 
   return (
     <CoffeeContext.Provider
-      value={{ ...coffeeData, favouriteCoffee, toggleFavourite }}
+      value={{
+        ...coffeeData,
+        favouriteCoffee,
+        toggleFavourite,
+        compareList,
+        toggleCompare,
+      }}
     >
       {children}
     </CoffeeContext.Provider>

@@ -32,6 +32,9 @@ export default function Navbar() {
                 <FontAwesomeIcon icon={fasHeart} className="text-danger" />
               )}
             </NavLink>
+            <NavLink className="nav-link" to="/compare">
+              Confronta
+            </NavLink>
             <NavLink className="nav-link" to="/details">
               Approfondisci
             </NavLink>

@@ -5,6 +5,7 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import FavouriteList from "./pages/FavouriteList";
 import DetailsUs from "./pages/DetailsUs";
 import { CoffeeProvider } from "./context/CoffeeContext";
+import ComparePage from "./pages/ComparePage";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <Route path="/coffees/:id" element={<CoffeeDetails />} />
             <Route path="/coffees/favourite" element={<FavouriteList />} />
             <Route path="/details" element={<DetailsUs />} />
+            <Route path="/compare" element={<ComparePage />} />
           </Route>
         </Routes>
       </CoffeeProvider>
