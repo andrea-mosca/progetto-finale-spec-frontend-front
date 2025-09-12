@@ -17,8 +17,8 @@ export default function ComparePage() {
           <thead>
             <tr>
               <th>Nome</th>
-              {compareList.map((p) => (
-                <th key={p.id}>{p.title}</th>
+              {compareList.map((p, i) => (
+                <th key={i}>{p.title}</th>
               ))}
             </tr>
           </thead>
@@ -27,48 +27,48 @@ export default function ComparePage() {
               <td>
                 <strong>Categoria</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.category}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.category}</td>
               ))}
             </tr>
             <tr>
               <td>
                 <strong>Origine</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.origine}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.origine}</td>
               ))}
             </tr>
             <tr>
               <td>
-                <strong>Categoria</strong>
+                <strong>Intensità</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.category}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.intensita}/10</td>
               ))}
             </tr>
             <tr>
               <td>
-                <strong>Categoria</strong>
+                <strong>Caffeina</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.category}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.caffeina}mg</td>
               ))}
             </tr>
             <tr>
               <td>
-                <strong>Categoria</strong>
+                <strong>Prezzo</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.category}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.prezzo}€ /kg</td>
               ))}
             </tr>
             <tr>
               <td>
-                <strong>Categoria</strong>
+                <strong>Tostatura</strong>
               </td>
-              {compareList.map((p) => (
-                <td key={p.id}>{p.category}</td>
+              {compareList.map((p, i) => (
+                <td key={i}>{p.tostatura}</td>
               ))}
             </tr>
           </tbody>

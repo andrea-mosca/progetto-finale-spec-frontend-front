@@ -38,7 +38,7 @@ export default function CoffeCard({ title, category, id }) {
         <div>
           <button
             type="button"
-            onClick={() => toggleCompare({ id, title, category })}
+            onClick={() => toggleCompare(id)}
             className="btn btn-sm btn-outline-primary"
           >
             {isInCompare ? (

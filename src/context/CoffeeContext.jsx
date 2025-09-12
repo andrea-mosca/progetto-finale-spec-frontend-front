@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import useCoffee from "../hooks/useCoffee";
 
 const CoffeeContext = createContext();
@@ -7,6 +13,8 @@ function CoffeeProvider({ children }) {
   const coffeeData = useCoffee();
   const [favouriteCoffee, setFavouriteCoffee] = useState([]);
   const [compareList, setCompareList] = useState([]);
+  const { fetchSingleCoffee } = coffeeData;
+
   function toggleFavourite(item) {
     setFavouriteCoffee((prev) => {
       const alreadyFav = prev.find((fav) => fav.id === item.id);
@@ -17,15 +25,15 @@ function CoffeeProvider({ children }) {
       }
     });
   }
-  function toggleCompare(item) {
-    setCompareList((prev) => {
-      const alreadyAdded = prev.find((p) => p.id === item.id);
-      if (alreadyAdded) {
-        return prev.filter((p) => p.id !== item.id);
-      } else {
-        return [...prev, item];
-      }
-    });
+  async function toggleCompare(id) {
+    const alreadyAdded = compareList.find((p) => p.id === id);
+    if (alreadyAdded) {
+      setCompareList(compareList.filter((p) => p.id !== id));
+    } else {
+      const fullCoffee = await fetchSingleCoffee(id);
+      if (!fullCoffee) return;
+      setCompareList([...compareList, fullCoffee]);
+    }
   }
 
   return (

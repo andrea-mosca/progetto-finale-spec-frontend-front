@@ -23,12 +23,12 @@ export default function useCoffee() {
       const response = await fetch(`${apiUrl}/coffees/${id}`);
       const data = await response.json();
       setSingleCoffee(data.coffee);
-      return singleCoffee;
+      return data.coffee;
     } catch (err) {
       console.error(err);
       return null;
     }
-  });
+  }, []);
 
   return {
     coffee,
