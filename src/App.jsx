@@ -6,6 +6,7 @@ import FavouriteList from "./pages/FavouriteList";
 import DetailsUs from "./pages/DetailsUs";
 import { CoffeeProvider } from "./context/CoffeeContext";
 import ComparePage from "./pages/ComparePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/coffees/favourite" element={<FavouriteList />} />
             <Route path="/details" element={<DetailsUs />} />
             <Route path="/compare" element={<ComparePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </CoffeeProvider>

@@ -54,6 +54,7 @@ export default function CoffeList() {
           </label>
           <input
             name="search"
+            id="search"
             type="text"
             className="form-control"
             placeholder="es: Honduras Marcala"
@@ -67,6 +68,7 @@ export default function CoffeList() {
           </label>
           <select
             name="category"
+            id="category"
             className="form-select"
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
@@ -84,6 +86,7 @@ export default function CoffeList() {
         </label>
         <select
           name="sortby"
+          id="sortby"
           className="form-select"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
@@ -97,6 +100,7 @@ export default function CoffeList() {
         </label>
         <select
           name="sortorder"
+          id="sortorder"
           className="form-select"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
@@ -111,14 +115,17 @@ export default function CoffeList() {
         )}
       </div>
 
-      <div className="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-between">
-        {filteredCoffee &&
-          filteredCoffee.map((c, i) => (
-            <div className="col" key={i}>
+      {filteredCoffee.length > 0 ? (
+        <div className="mt-0 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-between">
+          {filteredCoffee.map((c) => (
+            <div className="col" key={c.id}>
               <CoffeCard title={c.title} category={c.category} id={c.id} />
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <h3 className="mt-3">Errore durante il caricamento dei caffè...</h3>
+      )}
     </div>
   );
 }
