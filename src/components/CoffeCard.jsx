@@ -7,12 +7,20 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import React from "react";
 
-export default function CoffeCard({ title, category, id }) {
+const CoffeeCard = React.memo(function CoffeCard({ title, category, id }) {
   const { favouriteCoffee, toggleFavourite, compareList, toggleCompare } =
     useCoffeeContext();
-  const isFavorite = favouriteCoffee.some((fav) => fav.id === id);
-  const isInCompare = compareList.some((item) => item.id === id);
+
+  const isFavorite = React.useMemo(
+    () => favouriteCoffee.some((fav) => fav.id === id),
+    [favouriteCoffee, id]
+  );
+  const isInCompare = React.useMemo(
+    () => compareList.some((item) => item.id === id),
+    [compareList, id]
+  );
   return (
     <div className="card my-card-list mt-5 h-100">
       <Link to={`/coffees/${id}`} className="card-body">
@@ -55,4 +63,5 @@ export default function CoffeCard({ title, category, id }) {
       </div>
     </div>
   );
-}
+});
+export default CoffeeCard;

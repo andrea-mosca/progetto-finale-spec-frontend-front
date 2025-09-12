@@ -15,39 +15,38 @@ function CoffeeProvider({ children }) {
   const [compareList, setCompareList] = useState([]);
   const { fetchSingleCoffee } = coffeeData;
 
-  function toggleFavourite(item) {
-    setFavouriteCoffee((prev) => {
-      const alreadyFav = prev.find((fav) => fav.id === item.id);
-      if (alreadyFav) {
-        return prev.filter((fav) => fav.id !== item.id);
+  const toggleFavourite = useCallback((item) => {
+    setFavouriteCoffee((prev) =>
+      prev.some((fav) => fav.id === item.id)
+        ? prev.filter((fav) => fav.id !== item.id)
+        : [...prev, item]
+    );
+  }, []);
+  const toggleCompare = useCallback(
+    async (id) => {
+      const alreadyAdded = compareList.find((p) => p.id === id);
+      if (alreadyAdded) {
+        setCompareList(compareList.filter((p) => p.id !== id));
       } else {
-        return [...prev, item];
+        const fullCoffee = await coffeeData.fetchSingleCoffee(id);
+        if (!fullCoffee) return;
+        setCompareList([...compareList, fullCoffee]);
       }
-    });
-  }
-  async function toggleCompare(id) {
-    const alreadyAdded = compareList.find((p) => p.id === id);
-    if (alreadyAdded) {
-      setCompareList(compareList.filter((p) => p.id !== id));
-    } else {
-      const fullCoffee = await fetchSingleCoffee(id);
-      if (!fullCoffee) return;
-      setCompareList([...compareList, fullCoffee]);
-    }
-  }
-
+    },
+    [compareList, coffeeData]
+  );
+  const value = useMemo(
+    () => ({
+      ...coffeeData,
+      favouriteCoffee,
+      toggleFavourite,
+      compareList,
+      toggleCompare,
+    }),
+    [coffeeData, favouriteCoffee, compareList, toggleFavourite, toggleCompare]
+  );
   return (
-    <CoffeeContext.Provider
-      value={{
-        ...coffeeData,
-        favouriteCoffee,
-        toggleFavourite,
-        compareList,
-        toggleCompare,
-      }}
-    >
-      {children}
-    </CoffeeContext.Provider>
+    <CoffeeContext.Provider value={value}>{children}</CoffeeContext.Provider>
   );
 }
 
