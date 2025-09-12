@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
 import { useCoffeeContext } from "../context/CoffeeContext";
 
 export default function ComparePage() {
-  const { compareList } = useCoffeeContext();
+  const { compareList, toggleCompare } = useCoffeeContext();
 
   if (compareList.length === 0) {
     return (
@@ -71,6 +70,22 @@ export default function ComparePage() {
               </td>
               {compareList.map((p) => (
                 <td key={p.id}>{p.tostatura}</td>
+              ))}
+            </tr>
+            <tr>
+              <td>
+                <strong>Rimuovi</strong>
+              </td>
+              {compareList.map((p) => (
+                <td>
+                  <button
+                    key={p.id}
+                    onClick={() => toggleCompare(p.id)}
+                    className="btn btn-danger"
+                  >
+                    Rimuovi
+                  </button>
+                </td>
               ))}
             </tr>
           </tbody>

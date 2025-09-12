@@ -5,7 +5,7 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useCoffeeContext } from "../context/CoffeeContext";
 
 export default function Navbar() {
-  const { favouriteCoffee } = useCoffeeContext();
+  const { favouriteCoffee, compareList } = useCoffeeContext();
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3">
       <div className="container-fluid">
@@ -32,7 +32,12 @@ export default function Navbar() {
                 <FontAwesomeIcon icon={fasHeart} className="text-danger" />
               )}
             </NavLink>
-            <NavLink className="nav-link" to="/compare">
+            <NavLink
+              className={`nav-link ${
+                compareList.length > 0 ? "text-success" : ""
+              }`}
+              to="/compare"
+            >
               Confronta
             </NavLink>
             <NavLink className="nav-link" to="/details">

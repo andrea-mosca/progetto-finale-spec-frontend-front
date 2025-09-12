@@ -47,15 +47,18 @@ const CoffeeCard = React.memo(function CoffeCard({ title, category, id }) {
           <button
             type="button"
             onClick={() => toggleCompare(id)}
-            className="btn btn-sm btn-outline-primary"
+            className={`btn btn-sm ${
+              isInCompare ? "btn-outline-danger" : "btn-outline-success"
+            }`}
           >
             {isInCompare ? (
               <>
-                <FontAwesomeIcon icon={faCheck} /> Aggiunto
+                <FontAwesomeIcon icon={faPlus} /> Rimuovi
               </>
             ) : (
               <>
-                <FontAwesomeIcon icon={faPlus} /> Confronta
+                <FontAwesomeIcon icon={faCheck} /> Aggiungi alla pagina di
+                confronto
               </>
             )}
           </button>
