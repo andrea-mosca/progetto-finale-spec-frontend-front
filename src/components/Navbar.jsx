@@ -8,7 +8,7 @@ export default function Navbar() {
   const { favouriteCoffee, compareList } = useCoffeeContext();
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3">
-      <div className="container-fluid">
+      <div className="container-fluid ">
         <button
           className="navbar-toggler"
           type="button"
@@ -25,6 +25,11 @@ export default function Navbar() {
             <NavLink className="nav-link" to="/">
               Home page
             </NavLink>
+            <NavLink className="nav-link" to="/details">
+              Approfondisci
+            </NavLink>
+          </div>
+          <div className="navbar-nav ms-auto">
             <NavLink className="nav-link" to="/coffees/favourite">
               {favouriteCoffee.length === 0 ? (
                 <FontAwesomeIcon icon={farHeart} className="text-secondary" />
@@ -39,9 +44,6 @@ export default function Navbar() {
               to="/compare"
             >
               Confronta
-            </NavLink>
-            <NavLink className="nav-link" to="/details">
-              Approfondisci
             </NavLink>
           </div>
         </div>

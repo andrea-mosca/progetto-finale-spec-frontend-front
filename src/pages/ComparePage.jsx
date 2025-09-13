@@ -14,10 +14,10 @@ export default function ComparePage() {
       <h2>Confronto Prodotti</h2>
 
       <div>
-        <table className="table table-bordered">
+        <table className="table table- table-bordered">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th className="my-comp-table">Nome</th>
               {compareList.map((p) => (
                 <th key={p.id}>{p.title}</th>
               ))}

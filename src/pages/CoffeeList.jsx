@@ -2,9 +2,6 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import CoffeCard from "../components/CoffeCard";
 import { useCoffeeContext } from "../context/CoffeeContext";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
-
 function debounce(callback, delay) {
   let timer;
   return (value) => {
@@ -66,78 +63,82 @@ export default function CoffeList() {
   }, [coffee]);
 
   return (
-    <div className="container min-vh-100">
+    <div className="container mb-5">
       <h1 className="mt-5">Elenco dei caffe</h1>
 
       <div>
-        <div>
-          <label htmlFor="search" className="form-label text-white fs-5">
-            cerca il nome di un caffè:
-          </label>
-          <input
-            name="search"
-            id="search"
-            type="text"
-            className="form-control"
-            placeholder="es: Honduras Marcala"
-            value={inputValue} // mostra subito quello che scrivi
-            onChange={handleInputChange} //  aggiorna il filtro con debounce
-          />
+        <div className="d-flex justify-content-center gap-5">
+          <div className="flex-fill">
+            <label htmlFor="search" className="form-label text-white fs-5">
+              cerca il nome di un caffè:
+            </label>
+            <input
+              name="search"
+              id="search"
+              type="text"
+              className="form-control my-input-color"
+              placeholder="es: Honduras Marcala"
+              value={inputValue} // mostra subito quello che scrivi
+              onChange={handleInputChange} //  aggiorna il filtro con debounce
+            />
+          </div>
+
+          <div className="flex-fill">
+            <label htmlFor="category" className="form-label text-white fs-5">
+              seleziona una categoria
+            </label>
+            <select
+              name="category"
+              id="category"
+              className="form-select my-input-color"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              <option value="">Nessun filtro</option>
+              {categories.map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="category" className="form-label text-white fs-5">
-            seleziona una categoria
-          </label>
-          <select
-            name="category"
-            id="category"
-            className="form-select"
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            <option value="">Nessun filtro</option>
-            {categories.map((c, i) => (
-              <option key={i} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+        <div className="d-flex justify-content-center gap-5">
+          <div className="flex-fill">
+            <label htmlFor="sortby" className="form-label text-white fs-5">
+              scegli il tipo di ordinamento
+            </label>
+            <select
+              name="sortby"
+              id="sortby"
+              className="form-select my-input-color"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="title">Ordina per titolo</option>
+              <option value="category">Ordina per categoria</option>
+            </select>
+          </div>
+
+          <div className="flex-fill">
+            <label htmlFor="sortorder" className="form-label text-white fs-5">
+              scegli l'ordine di ordinamento
+            </label>
+            <div>
+              <select
+                name="sortorder"
+                id="sortorder"
+                className="form-select my-input-color"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="asc">ascendente</option>
+                <option value="desc">discendente</option>
+              </select>
+            </div>
+          </div>
         </div>
-
-        <label htmlFor="sortby" className="form-label text-white fs-5">
-          scegli il tipo di ordinamento
-        </label>
-        <select
-          name="sortby"
-          id="sortby"
-          className="form-select"
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="title">Ordina per titolo</option>
-          <option value="category">Ordina per categoria</option>
-        </select>
-
-        <label htmlFor="sortorder" className="form-label text-white fs-5">
-          scegli l'ordine di ordinamento
-        </label>
-        <select
-          name="sortorder"
-          id="sortorder"
-          className="form-select"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-        >
-          <option value="asc">ascendente</option>
-          <option value="desc">discendente</option>
-        </select>
-
-        {sortOrder === "asc" ? (
-          <FontAwesomeIcon icon={faArrowUp} />
-        ) : (
-          <FontAwesomeIcon icon={faArrowDown} />
-        )}
       </div>
 
       {filteredCoffee.length > 0 ? (
