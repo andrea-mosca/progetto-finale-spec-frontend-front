@@ -1,33 +1,56 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import CoffeCard from "../components/CoffeCard";
 import { useCoffeeContext } from "../context/CoffeeContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
+function debounce(callback, delay) {
+  let timer;
+  return (value) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(value);
+    }, delay);
+  };
+}
+
 export default function CoffeList() {
   const { coffee } = useCoffeeContext();
-  const [searchTitle, setSearchTitle] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
 
+  //  Stato "live" per l'input (aggiorna subito)
+  const [inputValue, setInputValue] = useState("");
+  //  Stato aggiornato solo dopo debounce
+  const [searchTitle, setSearchTitle] = useState("");
+
+  const [categoryFilter, setCategoryFilter] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortBy, setSortBy] = useState("title");
+  // DEBOUNCE
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      setSearchTitle(value);
+    }, 500),
+    []
+  );
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    debouncedSearch(e.target.value);
+  };
+  // FILTRI
   const filteredCoffee = useMemo(() => {
     let result = [...coffee];
-    // filtro per categoria
     if (categoryFilter) {
       result = result.filter(
         (c) => c.category.toLowerCase() === categoryFilter.toLowerCase()
       );
     }
-    // filtro per titolo
     if (searchTitle) {
       result = result.filter((c) =>
         c.title.toLowerCase().includes(searchTitle.toLowerCase())
       );
     }
-    // ordinamento
     result.sort((a, b) => {
       const sortA = a[sortBy].toLowerCase();
       const sortB = b[sortBy].toLowerCase();
@@ -38,7 +61,6 @@ export default function CoffeList() {
     return result;
   }, [coffee, searchTitle, categoryFilter, sortOrder, sortBy]);
 
-  // creazione array per generare le option della select
   const categories = useMemo(() => {
     return Array.from(new Set(coffee.map((c) => c.category)));
   }, [coffee]);
@@ -47,7 +69,7 @@ export default function CoffeList() {
     <div className="container min-vh-100">
       <h1 className="mt-5">Elenco dei caffe</h1>
 
-      <div className="">
+      <div>
         <div>
           <label htmlFor="search" className="form-label text-white fs-5">
             cerca il nome di un caffè:
@@ -58,10 +80,11 @@ export default function CoffeList() {
             type="text"
             className="form-control"
             placeholder="es: Honduras Marcala"
-            value={searchTitle}
-            onChange={(e) => setSearchTitle(e.target.value)}
+            value={inputValue} // mostra subito quello che scrivi
+            onChange={handleInputChange} //  aggiorna il filtro con debounce
           />
         </div>
+
         <div>
           <label htmlFor="category" className="form-label text-white fs-5">
             seleziona una categoria
@@ -81,6 +104,7 @@ export default function CoffeList() {
             ))}
           </select>
         </div>
+
         <label htmlFor="sortby" className="form-label text-white fs-5">
           scegli il tipo di ordinamento
         </label>
@@ -106,8 +130,9 @@ export default function CoffeList() {
           onChange={(e) => setSortOrder(e.target.value)}
         >
           <option value="asc">ascendente</option>
-          <option value="desc">discendente </option>
+          <option value="desc">discendente</option>
         </select>
+
         {sortOrder === "asc" ? (
           <FontAwesomeIcon icon={faArrowUp} />
         ) : (
