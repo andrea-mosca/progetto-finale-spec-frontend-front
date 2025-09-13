@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   useCallback,
   useMemo,
 } from "react";
@@ -11,10 +12,38 @@ const CoffeeContext = createContext();
 
 function CoffeeProvider({ children }) {
   const coffeeData = useCoffee();
-  const [favouriteCoffee, setFavouriteCoffee] = useState([]);
-  const [compareList, setCompareList] = useState([]);
-  const { fetchSingleCoffee } = coffeeData;
 
+  // leggo i COMPARATI al primo render con localStorage
+  const [compareList, setCompareList] = useState(() => {
+    try {
+      const storedCompare = localStorage.getItem("compareList");
+      return storedCompare ? JSON.parse(storedCompare) : [];
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  });
+
+  // leggo i PREFERITI al primo render con localStorage
+  const [favouriteCoffee, setFavouriteCoffee] = useState(() => {
+    try {
+      const storedFavs = localStorage.getItem("favouriteCoffee");
+      return storedFavs ? JSON.parse(storedFavs) : [];
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  });
+  //  Ogni volta che compareList cambia, salvo in localStorage
+  useEffect(() => {
+    localStorage.setItem("compareList", JSON.stringify(compareList));
+  }, [compareList]);
+  //  Ogni volta che favouriteCoffee cambia, salvo in localStorage
+  useEffect(() => {
+    localStorage.setItem("favouriteCoffee", JSON.stringify(favouriteCoffee));
+  }, [favouriteCoffee]);
+
+  // funzione aggiunta/rimozioni elemento ai preferiti
   const toggleFavourite = useCallback((item) => {
     setFavouriteCoffee((prev) =>
       prev.some((fav) => fav.id === item.id)
@@ -22,6 +51,8 @@ function CoffeeProvider({ children }) {
         : [...prev, item]
     );
   }, []);
+  // funzione aggiunta/rimozioni elemento al comparatore
+
   const toggleCompare = useCallback(
     async (id) => {
       const alreadyAdded = compareList.find((p) => p.id === id);
