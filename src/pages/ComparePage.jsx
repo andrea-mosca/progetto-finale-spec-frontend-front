@@ -13,8 +13,8 @@ export default function ComparePage() {
     <div className="container mt-5">
       <h2>Confronto Prodotti</h2>
 
-      <div>
-        <table className="table table- table-bordered">
+      <div className="table-responsive">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th className="my-comp-table">Nome</th>
@@ -77,9 +77,8 @@ export default function ComparePage() {
                 <strong>Rimuovi</strong>
               </td>
               {compareList.map((p) => (
-                <td>
+                <td key={p.id}>
                   <button
-                    key={p.id}
                     onClick={() => toggleCompare(p.id)}
                     className="btn btn-danger"
                   >

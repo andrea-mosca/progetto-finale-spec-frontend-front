@@ -67,8 +67,8 @@ export default function CoffeList() {
       <h1 className="mt-5">Elenco dei caffe</h1>
 
       <div>
-        <div className="d-flex justify-content-center gap-5">
-          <div className="flex-fill">
+        <div className="row">
+          <div className="col-12 col-md-6 col-lg-3 d-flex flex-column justify-content-between">
             <label htmlFor="search" className="form-label text-white fs-5">
               cerca il nome di un caffè:
             </label>
@@ -83,7 +83,7 @@ export default function CoffeList() {
             />
           </div>
 
-          <div className="flex-fill">
+          <div className="col-12 col-md-6 col-lg-3 d-flex flex-column justify-content-between">
             <label htmlFor="category" className="form-label text-white fs-5">
               seleziona una categoria
             </label>
@@ -102,10 +102,8 @@ export default function CoffeList() {
               ))}
             </select>
           </div>
-        </div>
 
-        <div className="d-flex justify-content-center gap-5">
-          <div className="flex-fill">
+          <div className="col-12 col-md-6 col-lg-3 d-flex flex-column justify-content-between">
             <label htmlFor="sortby" className="form-label text-white fs-5">
               scegli il tipo di ordinamento
             </label>
@@ -121,7 +119,7 @@ export default function CoffeList() {
             </select>
           </div>
 
-          <div className="flex-fill">
+          <div className="col-12 col-md-6 col-lg-3 d-flex flex-column justify-content-between">
             <label htmlFor="sortorder" className="form-label text-white fs-5">
               scegli l'ordine di ordinamento
             </label>
@@ -129,7 +127,7 @@ export default function CoffeList() {
               <select
                 name="sortorder"
                 id="sortorder"
-                className="form-select my-input-color"
+                className="form-select my-input-color mb-0"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value)}
               >
